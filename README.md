@@ -1,16 +1,35 @@
-## Simulation 
+ 
+ 
+## Overview
 
-This folder includes all python codes to the paper "Sparse Fr\'{e}chet Sufficient Dimension Reduction with Graphical Structure Among Predictors".
+This folder includes all python codes to reproduce the numerical results in the paper "Sparse Fr\'{e}chet Sufficient Dimension Reduction with Graphical Structure Among Predictors".
 
-### EX1-EX2.py
+## Description of each file
 
-The EX1-EX2.py file produces reproducing results for Example 1 and 2. 
+* **EX1-EX2.py** : produces results for Example 1 and 2.
+* **EX3-EX4** : produces results for Example 3 and 4.
+* **BikeRental.py**: produces the results in the real data analysis and Figure 1. 
+* **day.csv and hour.csv**: daily and hourly bike rental data.
 
-### EX3-EX4.ph
+## Executing steps
 
-The EX3-EX4.py file produces reproducing results for Example 3 and 4.
+Executing the following steps will generate all the tables used in the manuscript. 
 
+1. To run **EX1-EX2.py**, change parameters
 
-### BikeRental.py
+    a). seedid = 1-100: for 100 simulations
 
-The BikeRental.py file reproduces the results in the real data analysis. 
+    b). EX=1 for example 1 (Table 1) or EX=2 for example 2 (Table 2)
+
+    c). covstruc = 1 or 2: produce Table 3
+
+    d). neigh = False or True: produce Table 5
+
+2. To run **EX3-EX4.py**, change parameters
+
+    a). seedid = 1-100: for 100 simulations
+
+    b). EX=3 for example 3 or EX=4 for example 2
+
+    c). covstruc = 1 or 2
+    

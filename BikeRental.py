@@ -536,11 +536,84 @@ metric = "Euclidean"
 # M = wire(X, Y, metric)
 # %%
 d_est = gwire_d(Xs, Ys, metric, Nb)
-beta_g, _, lam_opt = gwire_cv(Xs, Ys, Nb, metric, d = 2, fold=5)
+beta_g, _ = gwire_cv(Xs, Ys, Nb, metric, d = 2, fold=5)
 supp_hat = np.nonzero(norm(beta_g, axis=1))[0].tolist()
 beta_s = swire_cv(Xs, Ys, metric, d = 2)
 beta_b = bwire_cv(Xs, Ys, metric, d = 2)
-beta2 = np.fliplr(beta_g)
+beta_g = np.fliplr(beta_g)
 beta_s = np.fliplr(beta_s)
 beta_b = np.fliplr(beta_b)
+#%% plots
+from mpl_toolkits import mplot3d
+from mpl_toolkits.mplot3d import Axes3D
+from scipy.interpolate import make_interp_spline
+import matplotlib.pyplot as plt
+from scipy.stats import norm
+from matplotlib import cm
+
+Dir1 = Xs @ beta_g[:,0]
+Dir2 = Xs @ beta_g[:,1]
+
+#%% First Sufficient Predictor
+ind = np.argsort(Dir1)
+seq = np.linspace(0,700,101,endpoint=True)
+seq = seq.astype(int)
+subind = ind[seq]
+subind
+
+n = X.shape[0]
+fig = plt.figure(figsize =(10,10))
+# fig.subplots_adjust(bottom=-0.15,top=1.2)
+
+ax = plt.axes(projection ='3d')
+# ax.set_box_aspect(aspect = (15,15,30))
+
+for i in subind:
+  x = [Dir1[i]] * 1000 # first sufficient directions
+  y = np.arange(24) # hours
+  z = Y[i,:] # density, replace by y[i]
+  B_spline_coeff = make_interp_spline(y, z)
+  y_Final = np.linspace(y.min(), y.max(), 1000)
+  z_Final = B_spline_coeff(y_Final)
+  ax.scatter(x,y_Final,z_Final, c =z_Final, cmap = 'rainbow', s = 0.1)
+
+ax.set_xlabel("First Sufficient Predictor", fontsize=15)
+ax.set_ylabel("Hours", fontsize=15)
+ax.set_zlabel("Counts", fontsize=15)
+ax.view_init(30, 200)
+fig.tight_layout()
+
+#%% Second Sufficient Predictor
+ind1 = np.where(Xdat["workingday"] == 1)[0] # Working days or Xdat["workingday"] == 0 for Non-Workding days
+len(ind1)
+seq = np.linspace(0,len(ind1),100,endpoint=False)
+# subind = ind[range(100)*7]
+seq = seq.astype(int)
+subind = ind1[seq]
+subind
+
+n = X.shape[0]
+fig = plt.figure(figsize =(10,10))
+ax = plt.axes(projection ='3d')
+for i in subind:
+  x = [Dir2[i]] * 1000 # first sufficient directions
+  y = np.arange(24) # hours
+  z = Y[i,:] # density, replace by y[i]
+  B_spline_coeff = make_interp_spline(y, z)
+  y_Final = np.linspace(y.min(), y.max(), 1000)
+  z_Final = B_spline_coeff(y_Final)
+  ax.scatter(x,y_Final,z_Final, c =z_Final, cmap = 'rainbow', s = 0.1)
+
+ax.set_xlabel("Second Sufficient Predictor", fontsize=15)
+ax.set_ylabel("Hours", fontsize=15)
+ax.set_zlabel("Counts", fontsize=15)
 #%%
+ax.view_init(30, 250)
+fig.tight_layout()
+
+plt.plot(Dir1[subind], np.max(Y[subind,:], axis = 1), 'r.')
+plt.xlabel("Second Sufficient Predictor")
+plt.ylabel("Maximum Counts")
+
+
+# %%
