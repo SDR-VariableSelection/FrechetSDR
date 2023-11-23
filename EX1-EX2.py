@@ -19,7 +19,7 @@ from lib_fun import *
 # 3. covstruc = 1 or 2 to produce Table 3
 # 4. neigh = False to produce Table 5
 # 5. Table 4 is based on partial results.
-n,p,seedid = 200,100,123
+n,p,seedid = 500,1000,123
 EX = 2 # or 2
 neigh = True # or False
 covstruc = 1 # or 2
@@ -95,8 +95,8 @@ elif EX == 2:
 #%%
 import time
 start = time.time()
-# d_est = gwire_d(X, y, metric, Nb)
-# print('estimated structure dimension:',d_est)
+d_est = gwire_d(X, y, metric, Nb)
+print('estimated structure dimension:',d_est)
 beta_gwire, _ = gwire_cv(X, y, Nb, metric, d, fold=5)
 supp = np.nonzero(norm(beta_true, axis=1))[0].tolist()
 supp_hat = np.nonzero(norm(beta_gwire, axis=1))[0].tolist()
@@ -127,26 +127,26 @@ end = time.time()
 print('time used:n,p =', n, p, 'is', np.round(end - start,1))
 
 #%%
-# import pandas as pd
-# critable = pd.DataFrame()
-# critable.loc[0,"seedid"] = seedid
-# out1 = loss(beta_true, beta_gwire)
-# critable.loc[0,"d-est"] = d_est
-# critable.loc[0,"gwire-GeneralLoss"] = out1[0]
-# critable.loc[0,"gwire-correct"]= out1[1]
-# critable.loc[0,"gwire-false_positive"] = out1[2]
-# critable.loc[0,"gwire-false_negative"] = out1[3]
-# out2 = loss(beta_true, beta_swire)
-# critable.loc[0,"swireI-GeneralLoss"] = out2[0]
-# critable.loc[0,"swireI-correct"]= out2[1]
-# critable.loc[0,"swireI-false_positive"] = out2[2]
-# critable.loc[0,"swireI-false_negative"] = out2[3]
-# out3 = loss(beta_true, beta_bwire)
-# critable.loc[0,"swireII-GeneralLoss"] = out3[0]
-# critable.loc[0,"swireII-correct"]= out3[1]
-# critable.loc[0,"swireII-false_positive"] = out3[2]
-# critable.loc[0,"swireII-false_negative"] = out3[3]
-# print(critable)
+import pandas as pd
+critable = pd.DataFrame()
+critable.loc[0,"seedid"] = seedid
+out1 = loss(beta_true, beta_gwire)
+critable.loc[0,"d-est"] = d_est
+critable.loc[0,"gwire-GeneralLoss"] = out1[0]
+critable.loc[0,"gwire-correct"]= out1[1]
+critable.loc[0,"gwire-false_positive"] = out1[2]
+critable.loc[0,"gwire-false_negative"] = out1[3]
+out2 = loss(beta_true, beta_swire)
+critable.loc[0,"swireI-GeneralLoss"] = out2[0]
+critable.loc[0,"swireI-correct"]= out2[1]
+critable.loc[0,"swireI-false_positive"] = out2[2]
+critable.loc[0,"swireI-false_negative"] = out2[3]
+out3 = loss(beta_true, beta_bwire)
+critable.loc[0,"swireII-GeneralLoss"] = out3[0]
+critable.loc[0,"swireII-correct"]= out3[1]
+critable.loc[0,"swireII-false_positive"] = out3[2]
+critable.loc[0,"swireII-false_negative"] = out3[3]
+print(critable)
 # %%
 # t = time.strftime("%y%m%d")
 # fname = f'Density_n{n}_p{p}_d{d}_s{s}_sigma1_{t}.csv'

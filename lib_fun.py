@@ -6,6 +6,41 @@ from scipy.linalg import sqrtm
 from sklearn.model_selection import KFold # import KFold
 from sklearn.utils import resample
 
+def sir(X,Y,H):
+    n, p = X.shape
+    M = np.zeros((p, p))
+    X0 = X - np.mean(X, axis = 0)
+    YI = np.argsort(Y.reshape(-1))
+    A = np.array_split(YI, H) # split into 5 parts
+    for i in range(H):
+        tt = X0[A[i],].reshape(-1,p)
+        Xh = np.mean(tt, axis = 0).reshape(p, 1)
+        M = M + Xh @ Xh.T * len(A[i])/n
+    return M
+
+def cume(X, Y, metric=None):
+    n, p = X.shape
+    X0 = X - np.mean(X, axis = 0)
+    y = Y.reshape(-1)
+    #m_y = np.cumsum(X0[y.argsort(),:], axis = 0) 
+    m_y = np.cumsum(X0[np.argsort(y),:], axis = 0)
+    M = m_y.T @ m_y/(n**3)
+    return M
+
+def pHd(X, Y, method = 'r'):
+    n, p = X.shape
+    X0 = X - np.mean(X, axis = 0)
+    Y = Y.reshape(n)
+    rxy = np.zeros(p)
+    method = 'r'
+    for i in range(p):
+        rxy[i] = np.corrcoef(X[:,i], Y)[0,1]
+    if (method == 'r'):
+        Y0 = Y - np.mean(Y) - X @ rxy
+    else:
+        Y0 = Y - np.mean(Y)
+    M = X0.T @ np.diag(Y0) @ X0 / n
+    return M
 
 def wire(X, y, metric):   
     """calculate sample kernel matrix for WIRE

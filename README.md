@@ -8,6 +8,7 @@ This folder includes all python codes to reproduce the numerical results in the 
 
 * **EX1-EX2.py** : produces results for Example 1 and 2.
 * **EX3-EX4** : produces results for Example 3 and 4.
+* **compute_time.ipynb** : compute computation time for each algorithm.
 * **BikeRental.py**: produces the results in the real data analysis and Figure 1. 
 * **day.csv and hour.csv**: daily and hourly bike rental data.
 
