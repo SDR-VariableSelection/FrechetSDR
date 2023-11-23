@@ -2,10 +2,11 @@
  
 ## Overview
 
-This folder includes all python codes to reproduce the numerical results in the paper "Sparse Fr\'{e}chet Sufficient Dimension Reduction with Graphical Structure Among Predictors".
+This folder includes all python codes to reproduce the numerical results in the paper "Sparse Fréchet Sufficient Dimension Reduction with Graphical Structure Among Predictors".
 
 ## Description of each file
 
+* **lib_fun.py** : support functions.
 * **EX1-EX2.py** : produces results for Example 1 and 2.
 * **EX3-EX4** : produces results for Example 3 and 4.
 * **compute_time.ipynb** : compute computation time for each algorithm.
@@ -34,3 +35,12 @@ Executing the following steps will generate all the tables used in the manuscrip
 
     c). covstruc = 1 or 2
     
+## Citation
+```
+@article{weng2023sparse,
+  title={Sparse Fréchet Sufficient Dimension Reduction with Graphical Structure Among Predictors},
+  author={Weng, Jiaying and Tan, Kai and Wang, Cheng and Yu, Zhou},
+  journal={arXiv preprint arXiv:2310.19114},
+  year={2023}
+}
+```
