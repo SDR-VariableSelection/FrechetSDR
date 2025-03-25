@@ -22,7 +22,7 @@ df = hour.pivot(index='dteday',columns='hr')[['cnt']]
 df=df.fillna(0)
 old = df.columns.values.tolist()
 new = ['{}'.format(x) for x in range(0, 24)]
-df = df.set_axis(new, axis=1, inplace=False)
+df = df.set_axis(new, axis=1)
 df.index = pd.to_datetime(df.index, format='%Y-%m-%d')
 df = df.drop(index="2012-10-29")
 df.shape
@@ -86,7 +86,7 @@ for i in range(p):
 metric = "Euclidean"
 # M = wire(X, Y, metric)
 # %%
-d_est = gwire_d(Xs, Ys, metric, Nb)
+# d_est = gwire_d(Xs, Ys, metric, Nb)
 beta_g, _ = gwire_cv(Xs, Ys, Nb, metric, d = 2, fold=5)
 supp_hat = np.nonzero(norm(beta_g, axis=1))[0].tolist()
 beta_s = swire_cv(Xs, Ys, metric, d = 2)
@@ -135,7 +135,7 @@ ax.view_init(30, 200)
 fig.tight_layout()
 
 #%% Second Sufficient Predictor
-ind1 = np.where(Xdat["workingday"] == 1)[0] # Working days or Xdat["workingday"] == 0 for Non-Workding days
+ind1 = np.where(Xdat["workingday"] == 0)[0] # Working days or Xdat["workingday"] == 0 for Non-Workding days
 len(ind1)
 seq = np.linspace(0,len(ind1),100,endpoint=False)
 # subind = ind[range(100)*7]
@@ -162,7 +162,7 @@ ax.set_zlabel("Counts", fontsize=15)
 ax.view_init(30, 250)
 fig.tight_layout()
 
-plt.plot(Dir1[subind], np.max(Y[subind,:], axis = 1), 'r.')
+plt.plot(Dir2[subind], np.max(Y[subind,:], axis = 1), 'r.')
 plt.xlabel("Second Sufficient Predictor")
 plt.ylabel("Maximum Counts")
 
