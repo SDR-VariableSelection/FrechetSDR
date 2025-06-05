@@ -37,10 +37,11 @@ Executing the following steps will generate all the tables used in the manuscrip
     
 ## Citation
 ```
-@article{weng2023sparse,
-  title={Sparse Fréchet Sufficient Dimension Reduction with Graphical Structure Among Predictors},
+@article{weng2025sparse,
+  title={Sparse Fr{\'e}chet sufficient dimension reduction with graphical structure among predictors},
   author={Weng, Jiaying and Tan, Kai and Wang, Cheng and Yu, Zhou},
-  journal={arXiv preprint arXiv:2310.19114},
-  year={2023}
+  journal={Scandinavian Journal of Statistics},
+  year={2025},
+  publisher={Wiley Online Library}
 }
 ```
